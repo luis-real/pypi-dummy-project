@@ -2,6 +2,8 @@ name: Print Contexts
 on: 
   workflow_dispatch:
   workflow_call:
+  pull_request:
+  push:
 jobs:
   base-context:
     runs-on: self-hosted 
