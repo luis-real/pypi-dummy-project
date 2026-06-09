@@ -3,7 +3,8 @@ on:
   pull_request:
   push:
   release:
-
+    types:
+      - published      
 permissions: read-all
 
 concurrency:
@@ -38,6 +39,7 @@ jobs:
         run: echo "${{ toJSON(inputs) }}" 1>/dev/null
   extra-job:
     runs-on: self-hosted
+    if: github.event_name == 'release'
     steps:
       - name: Do some tasks
         run: echo "Tasks executed"
