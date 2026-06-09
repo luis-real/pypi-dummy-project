@@ -39,6 +39,7 @@ jobs:
         run: echo "${{ toJSON(inputs) }}" 1>/dev/null
   extra-job:
     runs-on: self-hosted
+    needs: base-context
     if: github.event_name == 'release'
     steps:
       - name: Do some tasks
