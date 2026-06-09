@@ -36,3 +36,8 @@ jobs:
         run: echo "${{ toJSON(needs) }}" 1>/dev/null
       - name: Print inputs context
         run: echo "${{ toJSON(inputs) }}" 1>/dev/null
+  extra-job:
+    runs-on: self-hosted
+    steps:
+      - name: Do some tasks
+        run: echo "Tasks executed"
