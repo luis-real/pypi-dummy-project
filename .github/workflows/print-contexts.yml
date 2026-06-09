@@ -1,9 +1,15 @@
 name: Print Contexts
 on: 
-  workflow_dispatch:
-  workflow_call:
   pull_request:
   push:
+  release:
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   base-context:
     runs-on: self-hosted 
