@@ -40,8 +40,9 @@ jobs:
   extra-job:
     runs-on: self-hosted
     needs: base-context
-    if: github.event_name == 'release'
     steps:
       - name: Do some tasks
         run: echo "Tasks executed"
-  
+      - name: Do extra tasks from outside
+        run: echo "Tasks executed from outside PR"
+
