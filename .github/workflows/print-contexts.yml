@@ -44,5 +44,5 @@ jobs:
       - name: Do some tasks
         run: echo "Tasks executed"
       - name: Do extra tasks from outside
-        run: echo "Tasks executed from outside PR"
+        run: echo "A lot of tasks executed from outside PR"
 
