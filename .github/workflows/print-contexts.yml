@@ -1,0 +1,52 @@
+name: Print Contexts
+on: 
+  workflow_dispatch:
+  workflow_call:
+jobs:
+  base-context:
+    runs-on: self-hosted 
+    steps:
+      - name: Print github context
+        run: echo "${{ toJSON(github) }}" 1>/dev/null
+      - name: Print vars context
+        run: echo "${{ toJSON(vars) }}" 1>/dev/null
+      - name: Print job context
+        run: echo "${{ toJSON(job) }}" 1>/dev/null
+      - name: Print runner context
+        run: echo "${{ toJSON(runner) }}" 1>/dev/null
+      - name: Print secrets context
+        run: echo "${{ toJSON(secrets) }}" 1>/dev/null
+      - name: Print strategy context
+        run: echo "${{ toJSON(strategy) }}" 1>/dev/null
+      - name: Print env context
+        run: echo "${{ toJSON(env) }}" 1>/dev/null
+      - name: Print steps context
+        run: echo "${{ toJSON(steps) }}" 1>/dev/null
+      - name: Print matrix context
+        run: echo "${{ toJSON(matrix) }}" 1>/dev/null
+      - name: Print needs context
+        run: echo "${{ toJSON(needs) }}" 1>/dev/null
+      - name: Print inputs context
+        run: echo "${{ toJSON(inputs) }}" 1>/dev/null
+  rest-api-call:
+    runs-on: self-hosted
+    steps:
+      - name: Get jobs from rest API
+        run: |
+          curl --request GET --silent \
+          --url https://api.github.com/repos/intel-sandbox/poc-lreal-sandbox/actions/runs/${{ github.run_id }}/jobs \
+          --header 'Accept: application/vnd.github+json' \
+          --header "Authorization: Bearer ${{ secrets.github_token }}" 
+      - name: Get job url from rest API
+        run: |
+          curl --request GET --silent \
+          --url https://api.github.com/repos/intel-sandbox/poc-lreal-sandbox/actions/runs/${{ github.run_id }}/jobs \
+          --header 'Accept: application/vnd.github+json' \
+          --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" | \
+          jq '.jobs[] | select(.name == "${{ github.job }}") | .html_url'
+  add-annotation:
+    runs-on: self-hosted
+    steps:
+      - name: Add workflow run information in annotations
+        run: |
+          echo "::notice title=Run ID:: The run id it's ${{ github.run_id }}"
