@@ -20,10 +20,6 @@ jobs:
   extra-job:
     runs-on: self-hosted
     needs: initial-tasks
-    if: github.event_name == 'release'
-    environment:
-      name: releasing
-      deployment: false      
     steps:
       - name: Do some tasks
         run: echo "Tasks executed"
