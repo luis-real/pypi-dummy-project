@@ -12,21 +12,28 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  initial-tasks:
+  build:
     runs-on: self-hosted 
     steps:
-      - name: Run initial tasks
-        run: echo 'Execution of initial tasks'
-  extra-job:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Cleanup residual files
+        run: rm -fr dist/*
+      - name: Build wheel
+        run: python -m build --wheel --verbose
+  publish:
     runs-on: self-hosted
-    needs: initial-tasks
+    needs: build
     if: github.event_name == 'release'
     environment:
       name: releasing
       deployment: false      
     steps:
-      - name: Do some tasks
-        run: echo "Tasks executed"
+      - name: Publish package distributions to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          packages-dir: dist/*
   print-context:
     runs-on: self-hosted 
     steps:
