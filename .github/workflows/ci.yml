@@ -1,7 +1,8 @@
 name: Print Contexts
 on: 
+  push: 
+    branches: 
   pull_request:
-  push:
   release:
     types:
       - published      
