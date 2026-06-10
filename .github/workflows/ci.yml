@@ -29,9 +29,6 @@ jobs:
     runs-on: self-hosted
     needs: build
     if: github.event_name == 'release'
-    environment:
-      name: releasing
-      deployment: false
     steps:
       - name: Publish package distributions to TestPyPI
         uses: pypa/gh-action-pypi-publish@release/v1
