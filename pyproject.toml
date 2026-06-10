@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "lreal_pypi_dummy"
-version = "0.0.2"
+version = "0.0.4"
 authors = [
   { name="Luis Real", email="the.real.luis@example.com" }
 ]
 description = "A small example package"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Programming Language :: Python :: 3",
