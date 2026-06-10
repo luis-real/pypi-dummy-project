@@ -1,4 +1,4 @@
-name: Print Contexts
+name: CI
 on: 
   push: 
     branches: 
