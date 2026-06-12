@@ -31,12 +31,10 @@ jobs:
     if: github.event_name == 'release'
     steps:
       - name: Publish package distributions to TestPyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
-          packages-dir: dist
-  print-context:
-    runs-on: self-hosted 
-    steps:
-      - name: Print github context
-        run: echo '${{ toJSON(github) }}' 1>/dev/null
+        run: |
+          twine upload \
+            --repository-url https://test.pypi.org/legacy/ \
+            --non-interactive \
+            --verbose \
+            dist/lreal_pypi_dummy-0.0.3-py3-none-any.whl \
+            dist/lreal_pypi_dummy-0.0.5-py3-none-any.whl
