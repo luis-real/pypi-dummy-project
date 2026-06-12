@@ -26,11 +26,11 @@ jobs:
       - name: Build wheel
         run: python -m build --wheel --verbose
       - name: Upgrade minor version
-        run: sed 's/0.0.5/0.0.6/' pyproject.toml
+        run: sed -i 's/0.0.5/0.0.6/' pyproject.toml
       - name: Build wheel
         run: python -m build --wheel --verbose
       - name: Upgrade minor version
-        run: sed 's/0.0.6/0.0.7/' pyproject.toml
+        run: sed -i 's/0.0.6/0.0.7/' pyproject.toml
       - name: Build wheel
         run: python -m build --wheel --verbose
   publish:
