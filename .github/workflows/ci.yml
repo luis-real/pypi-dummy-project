@@ -25,6 +25,14 @@ jobs:
         run: rm -fr dist/*
       - name: Build wheel
         run: python -m build --wheel --verbose
+      - name: Upgrade minor version
+        run: sed 's/0.0.5/0.0.6/' pyproject.toml
+      - name: Build wheel
+        run: python -m build --wheel --verbose
+      - name: Upgrade minor version
+        run: sed 's/0.0.6/0.0.7/' pyproject.toml
+      - name: Build wheel
+        run: python -m build --wheel --verbose
   publish:
     runs-on: self-hosted
     needs: build
@@ -36,5 +44,5 @@ jobs:
             --repository-url https://test.pypi.org/legacy/ \
             --non-interactive \
             --verbose \
-            dist/lreal_pypi_dummy-0.0.3-py3-none-any.whl \
-            dist/lreal_pypi_dummy-0.0.5-py3-none-any.whl
+            dist/lreal_pypi_dummy-0.0.5-py3-none-any.whl \
+            dist/lreal_pypi_dummy-0.0.6-py3-none-any.whl
