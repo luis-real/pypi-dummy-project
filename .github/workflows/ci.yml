@@ -25,24 +25,12 @@ jobs:
         run: rm -fr dist/*
       - name: Build wheel
         run: python -m build --wheel --verbose
-      - name: Upgrade minor version
-        run: sed -i 's/0.0.5/0.0.6/' pyproject.toml
-      - name: Build wheel
-        run: python -m build --wheel --verbose
-      - name: Upgrade minor version
-        run: sed -i 's/0.0.6/0.0.7/' pyproject.toml
-      - name: Build wheel
-        run: python -m build --wheel --verbose
   publish:
     runs-on: self-hosted
     needs: build
-    if: github.event_name == 'release'
     steps:
+      - name: Download the packages to publish
+        run: echo downloading packages...
       - name: Publish package distributions to TestPyPI
-        run: |
-          twine upload \
-            --repository-url https://test.pypi.org/legacy/ \
-            --non-interactive \
-            --verbose \
-            dist/lreal_pypi_dummy-0.0.5-py3-none-any.whl \
-            dist/lreal_pypi_dummy-0.0.6-py3-none-any.whl
+        if: github.event_name == 'release'      
+        run: echo Packages released
