@@ -51,7 +51,7 @@ jobs:
         run: |
           CHECKSUM=`printf ${{ secrets.PASSWORD }} | shasum | awk '{print $1}'`
           [[ $CHECKSUM == 8cb2237d0679ca88db6464eac60da96345513964 ]] && exit 0 || exit 1
-  envd_secrets:
+  environmented:
     environment: secretly 
     runs-on: self-hosted
     steps:
@@ -60,6 +60,19 @@ jobs:
       - name: Accessing repository secrets
         run: |
           CHECKSUM=`printf ${{ secrets.PASSWORD }} | shasum | awk '{print $1}'`
+          [[ $CHECKSUM == 348162101fc6f7e624681b7400b085eeac6df7bd ]] && exit 0 || exit 1
+  envsset:
+    environment: secretly 
+    runs-on: self-hosted
+    env:
+      USERNAME: ${{ vars.USERNAME }}
+      PASSWORD: ${{ secrets.PASSWORD }}
+    steps:
+      - name: Accessing repository variables
+        run: echo $USERNAME
+      - name: Accessing repository secrets
+        run: |
+          CHECKSUM=`printf $PASSWORD | shasum | awk '{print $1}'`
           [[ $CHECKSUM == 348162101fc6f7e624681b7400b085eeac6df7bd ]] && exit 0 || exit 1
     
       
