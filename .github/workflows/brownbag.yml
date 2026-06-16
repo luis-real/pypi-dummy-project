@@ -73,6 +73,6 @@ jobs:
       - name: Accessing repository secrets
         run: |
           CHECKSUM=`printf $PASSWORD | shasum | awk '{print $1}'`
-          [[ $CHECKSUM == 348162101fc6f7e624681b7400b085eeac6df7bd ]] && exit 0 || exit 1
+          [[ $CHECKSUM == 348162101fc6f7e624681b7400b085eeac6df7bd ]] && exit 0 || exit 1  
     
       
