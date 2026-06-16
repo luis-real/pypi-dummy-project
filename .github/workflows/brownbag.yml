@@ -2,6 +2,7 @@ name: Environments brownbag
 
 on:
   push:
+  pull_request: 
   workflow_dispatch:
 
 permissions: read-all
@@ -26,6 +27,7 @@ jobs:
         run: echo second task executed
   launching:
     environment: production
+    needs: feature
     runs-on: self-hosted
     steps:
       - name: Preparing for launch on prod
