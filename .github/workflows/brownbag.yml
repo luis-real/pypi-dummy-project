@@ -1,0 +1,36 @@
+name: Environments brownbag
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions: read-all
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  context:
+    runs-on: self-hosted
+    steps:
+      - name: Print github context
+        run: echo "${{ toJSON(github) }}" 1>/dev/null
+  feature:
+    environment: development
+    runs-on: self-hosted
+    steps:
+      - name: First task
+        run: echo first task executed
+      - name: Second task
+        run: echo second task executed
+  launching:
+    environment: production
+    runs-on: self-hosted
+    steps:
+      - name: Preparing for launch on prod
+        run: echo launch starting...
+      - name: Launching
+        run: echo launch completed
+    
+      
