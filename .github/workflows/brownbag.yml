@@ -34,5 +34,13 @@ jobs:
         run: echo launch starting...
       - name: Launching
         run: echo launch completed
+  publishing:
+    environment: public
+    runs-on: self-hosted
+    steps:
+      - name: Preparing step for publishing
+        run: echo preparing materials
+      - name: Publishing
+        run: echo new materials published
     
       
